@@ -16,6 +16,7 @@ app.use(express.static("public"));
 // connect to mongoDB
 
 // routes
+app.use(require("./routes"));
 
 // Listen
 app.listen(PORT, () => {
