@@ -1,6 +1,6 @@
 // dependencies
 const router = require("express").Router();
-const Workout = require("../models/");
+const Workout = require("../models/workout");
 
 // /api/workouts
 router.get("/workouts", (req, res) => {
@@ -15,7 +15,9 @@ router.get("/workouts", (req, res) => {
     });
 });
 router.put("/workouts/:id", (req, res) => {
-  console.log(req.body);
+  Workout.updateOne({ id: req.params.id }, { exercises: req.body }, (data) => {
+    console.log(`id ${req.params.id} updated`);
+  });
 });
 // router.put("/workouts", (req, res) => {
 //   console.log(req.body);
