@@ -16,11 +16,13 @@ router.get("/workouts", (req, res) => {
 });
 router.put("/workouts/:id", (req, res) => {
   Workout.updateOne({ id: req.params.id }, { exercises: req.body }, (data) => {
-    console.log(`id ${req.params.id} updated`);
+    res.json(data);
   });
 });
-// router.put("/workouts", (req, res) => {
-//   console.log(req.body);
-// });
+router.post("/workouts", (req, res) => {
+  Workout.create(req.body).then((results) => {
+    res.json(results);
+  });
+});
 
 module.exports = router;
