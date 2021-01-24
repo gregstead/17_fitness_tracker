@@ -3,10 +3,10 @@ const router = require("express").Router();
 const Workout = require("../models/workout");
 
 // /api/workouts
-router.get("/workouts", (req, res) => {
+router.get("/workouts", (_req, res) => {
   // Find all workouts
-  Workout.find({}, (err, data) => {
-    if (err) throw err;
+  Workout.find({}).then((data) => {
+    console.log("data[9] :>> ", data[8]);
     res.json(data);
   });
 });
