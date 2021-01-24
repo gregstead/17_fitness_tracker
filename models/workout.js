@@ -1,7 +1,7 @@
 // Dependencies
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const opts = { toJSON: { virtuals: true } };
+const opts = { toJSON: { virtuals: true } }; // Include virtual props when data is requested
 const workoutSchema = new Schema(
   {
     day: {
@@ -38,8 +38,7 @@ const workoutSchema = new Schema(
 );
 // Setter for totalDuration calculated value
 workoutSchema.virtual("totalDuration").get(function () {
-  let ex = this.exercises;
-  return ex.length > 0 ? ex.reduce(reducer) : 0;
+  return this.exercises.reduce(reducer, 0);
 });
 const reducer = (accumulator, exercise) => accumulator + exercise.duration;
 
