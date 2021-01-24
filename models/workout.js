@@ -22,9 +22,10 @@ const workoutSchema = new Schema(
   },
   opts
 );
+// Setter for totalDuration calculated value
 workoutSchema.virtual("totalDuration").get(function () {
   let ex = this.exercises;
-  return ex.reduce(reducer);
+  return ex.length > 0 ? ex.reduce(reducer) : 0;
 });
 const reducer = (accumulator, exercise) => accumulator + exercise.duration;
 
