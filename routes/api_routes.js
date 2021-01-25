@@ -10,11 +10,11 @@ router.get("/workouts", (_req, res) => {
   });
 });
 
-router.post("/workouts", (req, res) => {
+router.post("/workouts", (_req, res) => {
   // create a workout
   db.Workout.create({})
-    .then((response) => {
-      res.json(response);
+    .then((data) => {
+      res.json(data);
     })
     .catch((err) => {
       console.error(err);
@@ -37,7 +37,7 @@ router.put("/workouts/:id", (req, res) => {
   });
 });
 
-router.get("/workouts/range", (req, res) => {
+router.get("/workouts/range", (_req, res) => {
   // Find all workouts
   db.Workout.find({}).then((data) => {
     res.json(data);
