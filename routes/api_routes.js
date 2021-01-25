@@ -1,27 +1,45 @@
 // dependencies
 const router = require("express").Router();
-const Workout = require("../models/workout");
+const db = require("../models/");
+const ObjectId = require("mongojs").ObjectId;
 
 router.get("/workouts", (_req, res) => {
   // Find all workouts
-  Workout.find({}).then((data) => {
+  db.Workout.find({}).then((data) => {
     res.json(data);
   });
 });
 
-router.put("/workouts/:id", (req, res) => {
-  Workout.updateOne({ id: req.params.id }, { exercises: req.body }, (data) => {
-    res.json(data);
-  });
-});
 router.post("/workouts", (req, res) => {
-  Workout.create(req.body).then((results) => {
-    res.json(results);
+  // create a workout
+  db.Workout.create({})
+    .then((response) => {
+      res.json(response);
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+});
+
+router.put("/workouts/:id", (req, res) => {
+  const id = req.params.id;
+  const data = req.body;
+  db.Workout.findOneAndUpdate(
+    { _id: ObjectId(id) },
+    {
+      $push: {
+        exercises: data,
+      },
+    },
+    { new: true }
+  ).then((workout) => {
+    res.json(workout);
   });
 });
+
 router.get("/workouts/range", (req, res) => {
   // Find all workouts
-  Workout.find({}).then((data) => {
+  db.Workout.find({}).then((data) => {
     res.json(data);
   });
 });
